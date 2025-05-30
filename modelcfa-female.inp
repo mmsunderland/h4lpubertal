@@ -1,0 +1,28 @@
+Title: H4L pubertal timing and internalising mediation analysis 
+
+data: file= h4lmed.csv;
+
+variable: names are id sex trialgrp cluster t1_dob
+t1_phq8 t1_promisa t1_meqcr t1_meqes t1_sdqemo t1_pub_cat
+t2_meqcr t2_meqes t2_dob t3_phq8 t3_promisa t3_sdqemo t3_dob
+t1_seifa state_nswr state_qld state_wa male female notsay
+t1_pub_bin;
+
+SUBPOPULATION = female EQ 1;
+
+usevariables = 
+t3_phq8 t3_promisa t3_sdqemo;
+
+
+missing = .; 
+
+cluster=cluster;
+
+ANALYSIS: estimator=mlr; type=complex;
+
+
+model:
+f by t3_phq8 t3_promisa t3_sdqemo;
+
+
+output: standardized; 

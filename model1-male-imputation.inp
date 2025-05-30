@@ -1,0 +1,74 @@
+Title: H4L pubertal timing and internalising mediation analysis 
+
+data: file= h4lmed_imputedlist.dat;
+        type=imputation;
+
+
+variable: names are     T1_DOB
+    T1_PHQ8
+    T1_PROMI
+    T1_PARMO
+    T1_PARCO
+    T1_MEQCR
+    T1_MEQES
+    T1_SDQEM
+    T1_PUB_C
+    T1_SELFC
+    T1_GSE
+    T2_MEQCR
+    T2_MEQES
+    T2_DOB
+    T3_PHQ8
+    T3_PROMI
+    T3_SDQEM
+    T1_SEIFA
+    STATE_NS
+    STATE_QL
+    STATE_WA
+    MALE
+    FEMALE
+    T1_PUB_B
+    T3_DOB
+    CLUSTER
+    ID
+    TRIALGRP
+    SEX
+    NOTSAY;
+
+SUBPOPULATION = MALE EQ 1;
+
+usevariables = T1_PUB_B T2_MEQES T2_MEQCR
+T3_PHQ8 T3_PROMI T3_SDQEM
+T1_DOB 
+T1_SELFC T1_GSE
+T1_MEQCR T1_MEQES
+T1_SEIFA
+STATE_NS STATE_QL STATE_WA;
+
+missing = *; 
+
+cluster=CLUSTER;
+
+DEFINE: CENTER T2_MEQES T2_MEQCR T1_DOB T1_SEIFA 
+            T1_SELFC T1_GSE T1_MEQES 
+            T1_MEQCR(GRANDMEAN);
+
+ANALYSIS: estimator=mlr; type=complex;
+
+
+model:
+f by T3_PHQ8 T3_PROMI T3_SDQEM;
+
+T2_MEQES on T1_PUB_B T1_MEQES T1_SELFC T1_GSE
+    T1_DOB T1_SEIFA STATE_NS STATE_QL STATE_WA;
+T2_MEQCR on T1_PUB_B T1_MEQCR T1_SELFC T1_GSE
+    T1_DOB T1_SEIFA STATE_NS STATE_QL STATE_WA;
+
+f on T1_PUB_B T2_MEQES T2_MEQCR T1_SELFC T1_GSE
+ T1_MEQES T1_MEQCR T1_DOB T1_SEIFA 
+STATE_NS STATE_QL STATE_WA;
+
+model indirect: 
+f ind T1_PUB_B;
+
+output: standardized; cinterval;

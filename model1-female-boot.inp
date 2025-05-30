@@ -1,0 +1,50 @@
+Title: H4L pubertal timing and internalising mediation analysis 
+
+data: file= h4lmed.csv;
+
+variable: names are id sex trialgrp cluster t1_dob
+t1_phq8 t1_promisa t1_parmon t1_parcon
+t1_meqcr t1_meqes t1_sdqemo t1_pub_cat
+t1_selfcon t1_gse 
+t2_meqcr t2_meqes t2_dob t3_phq8 t3_promisa t3_sdqemo t3_dob
+t1_seifa state_nswr state_qld state_wa male female notsay
+t1_pub_bin;
+
+USEOBSERVATIONS = female EQ 1;
+
+usevariables = t1_pub_bin t2_meqes t2_meqcr
+t3_phq8 t3_promisa t3_sdqemo
+t1_dob 
+t1_selfcon t1_gse
+t1_meqcr t1_meqes
+t1_seifa
+state_nswr state_qld state_wa;
+
+missing = .; 
+
+DEFINE: CENTER t2_meqes t2_meqcr t1_dob t1_seifa 
+            t1_selfcon t1_gse t1_meqes 
+            t1_meqcr(GRANDMEAN);
+
+ANALYSIS: estimator=ml;
+bootstrap=10000;
+
+
+model:
+f by t3_phq8 t3_promisa t3_sdqemo;
+
+t2_meqes on t1_pub_bin t1_meqes t1_selfcon t1_gse 
+    t1_dob t1_seifa state_nswr state_qld state_wa;
+t2_meqcr on t1_pub_bin t1_meqcr t1_selfcon t1_gse 
+    t1_dob t1_seifa state_nswr state_qld state_wa;
+
+f on t1_pub_bin t2_meqes t2_meqcr t1_selfcon t1_gse 
+ t1_meqes t1_meqcr t1_dob t1_seifa 
+state_nswr state_qld state_wa;
+
+model indirect: 
+f ind t1_pub_bin;
+
+
+output: standardized; 
+cint(bcbootstrap); 
