@@ -1,0 +1,1047 @@
+Mplus VERSION 8.8
+MUTHEN & MUTHEN
+02/19/2025  10:30 AM
+
+INPUT INSTRUCTIONS
+
+  Title: H4L pubertal timing and internalising mediation analysis
+
+  data: file= h4lmed.csv;
+
+  variable: names are id sex trialgrp cluster t1_dob
+  t1_phq8 t1_promisa t1_parmon t1_parcon
+  t1_meqcr t1_meqes t1_sdqemo t1_pub_cat
+  t1_selfcon t1_gse
+  t2_meqcr t2_meqes t2_dob t3_phq8 t3_promisa t3_sdqemo t3_dob
+  t1_seifa state_nswr state_qld state_wa male female notsay
+  t1_pub_bin;
+
+  SUBPOPULATION = male EQ 1;
+
+  usevariables = t1_pub_bin t2_meqes t2_meqcr
+  t3_phq8 t3_promisa t3_sdqemo
+  t1_dob
+  t1_selfcon t1_gse t1_parmon t1_parcon
+  t1_meqcr t1_meqes
+  t1_seifa
+  state_nswr state_qld state_wa;
+
+  missing = .;
+
+  cluster=cluster;
+
+  DEFINE: CENTER t2_meqes t2_meqcr t1_dob t1_seifa
+              t1_selfcon t1_gse t1_meqes
+              t1_parmon t1_parcon t1_meqcr(GRANDMEAN);
+
+  ANALYSIS: estimator=mlr; type=complex;
+
+
+  model:
+  f by t3_phq8* t3_promisa t3_sdqemo;
+  f@1; [f@0];
+
+  t2_meqes on t1_pub_bin t1_meqes t1_selfcon t1_gse t1_parmon t1_parcon
+      t1_dob t1_seifa state_nswr state_qld state_wa;
+  t2_meqcr on t1_pub_bin t1_meqcr t1_selfcon t1_gse t1_parmon t1_parcon
+      t1_dob t1_seifa state_nswr state_qld state_wa;
+
+  f on t1_pub_bin t2_meqes t2_meqcr t1_selfcon t1_gse t1_parmon t1_parcon
+   t1_meqes t1_meqcr t1_dob t1_seifa
+  state_nswr state_qld state_wa;
+
+  model indirect:
+  f ind t1_pub_bin;
+
+  output: standardized; cinterval;
+
+
+
+*** WARNING in VARIABLE command
+  Note that only the first 8 characters of variable names are used in the output.
+  Shorten variable names to avoid any confusion.
+*** WARNING
+  Data set contains cases with missing on x-variables.
+  These cases were not included in the analysis.
+  Number of cases with missing on x-variables:  2255
+*** WARNING
+  Data set contains cases with missing on all variables except
+  x-variables.  These cases were not included in the analysis.
+  Number of cases with missing on all variables except x-variables:  233
+   3 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+H4L pubertal timing and internalising mediation analysis
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        2055
+
+Number of dependent variables                                    5
+Number of independent variables                                 12
+Number of continuous latent variables                            1
+
+Observed dependent variables
+
+  Continuous
+   T2_MEQES    T2_MEQCR    T3_PHQ8     T3_PROMISA  T3_SDQEMO
+
+Observed independent variables
+   T1_PUB_B    T1_DOB      T1_SELFC    T1_GSE      T1_PARMO    T1_PARCO
+   T1_MEQCR    T1_MEQES    T1_SEIFA    STATE_NS    STATE_QL    STATE_WA
+
+Continuous latent variables
+   F
+
+Variables with special functions
+
+  Cluster variable      CLUSTER
+
+  Centering (GRANDMEAN)
+   T2_MEQES    T2_MEQCR    T1_DOB      T1_SEIFA    T1_SELFC    T1_GSE
+   T1_MEQES    T1_PARMO    T1_PARCO    T1_MEQCR
+
+
+Estimator                                                      MLR
+Information matrix                                        OBSERVED
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+
+Input data file(s)
+  h4lmed.csv
+
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns            14
+     Number of clusters                         61
+
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     T2_MEQES              0.000       0.110      -7.251    6.00%      -3.251     -0.251     -0.251
+            1732.000      13.651      -0.082       8.749    3.00%       0.749      2.749
+     T2_MEQCR              0.000      -0.381     -13.623    5.61%      -3.623     -1.623      0.377
+            1729.000      36.670      -0.100      10.377    7.75%       1.377      4.377
+     T3_PHQ8               4.539       1.766       0.000   29.95%       0.000      1.000      3.000
+            1743.000      32.696       2.865      24.000    2.75%       4.000      8.000
+     T3_PROMISA           20.893       2.099      13.000   29.95%      13.000     15.000     16.000
+            1736.000     125.030       4.598      65.000    2.25%      18.000     26.000
+     T3_SDQEMO             2.260       1.200       0.000   31.29%       0.000      1.000      1.000
+            1665.000       6.082       0.876      10.000    1.92%       2.000      5.000
+     T1_PUB_BIN            0.182       1.648       0.000   81.80%       0.000      0.000      0.000
+            2055.000       0.149       0.717       1.000   18.20%       0.000      0.000
+     T1_DOB                0.000      -0.578      -1.695    0.10%      -0.695      0.305      0.305
+            2055.000       0.236      -0.855       1.305    1.12%       0.305      0.305
+     T1_SELFCON            0.000      -0.169     -30.516    0.05%      -6.516     -1.516      0.484
+            2055.000      65.420      -0.021      20.484    0.34%       2.484      6.484
+     T1_GSE                0.000      -0.801     -19.336    2.04%      -3.336     -0.336      0.664
+            2055.000      33.188       1.728      10.664    2.68%       0.664      4.664
+     T1_PARMON             0.000      -1.940     -20.518    0.73%      -2.518      0.482      1.482
+            2055.000      18.840       4.576       3.482   30.17%       2.482      3.482
+     T1_PARCON             0.000      -0.442     -18.872    1.46%      -4.872     -1.872      0.128
+            2055.000      38.453       0.022       9.128   10.90%       2.128      6.128
+     T1_MEQCR              0.000      -0.462     -14.237    2.29%      -3.237     -1.237     -0.237
+            2055.000      26.136       0.399       9.763    4.33%       1.763      3.763
+     T1_MEQES              0.000       0.138      -7.558    2.38%      -2.558     -0.558      0.442
+            2055.000      10.600       0.171       8.442    1.75%       0.442      2.442
+     T1_SEIFA              0.000      -0.417      -1.322    9.78%      -0.322     -0.322     -0.322
+            2055.000       0.414      -0.708       0.678   41.95%       0.678      0.678
+     STATE_NSWR            0.231       1.279       0.000   76.93%       0.000      0.000      0.000
+            2055.000       0.177      -0.365       1.000   23.07%       0.000      1.000
+     STATE_QLD             0.275       1.005       0.000   72.46%       0.000      0.000      0.000
+            2055.000       0.200      -0.989       1.000   27.54%       0.000      1.000
+     STATE_WA              0.159       1.869       0.000   84.14%       0.000      0.000      0.000
+            2055.000       0.133       1.492       1.000   15.86%       0.000      0.000
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       49
+
+Loglikelihood
+
+          H0 Value                      -24889.553
+          H0 Scaling Correction Factor      1.4833
+            for MLR
+          H1 Value                      -24596.579
+          H1 Scaling Correction Factor      1.2933
+            for MLR
+
+Information Criteria
+
+          Akaike (AIC)                   49877.105
+          Bayesian (BIC)                 50152.879
+          Sample-Size Adjusted BIC       49997.202
+            (n* = (n + 2) / 24)
+
+Chi-Square Test of Model Fit
+
+          Value                            590.151*
+          Degrees of Freedom                    31
+          P-Value                           0.0000
+          Scaling Correction Factor         0.9929
+            for MLR
+
+*   The chi-square value for MLM, MLMV, MLR, ULSMV, WLSM and WLSMV cannot be used
+    for chi-square difference testing in the regular way.  MLM, MLR and WLSM
+    chi-square difference testing is described on the Mplus website.  MLMV, WLSMV,
+    and ULSMV difference testing is done using the DIFFTEST option.
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.094
+          90 Percent C.I.                    0.087  0.100
+          Probability RMSEA <= .05           0.000
+
+CFI/TLI
+
+          CFI                                0.802
+          TLI                                0.554
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                           2897.885
+          Degrees of Freedom                    70
+          P-Value                           0.0000
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value                              0.047
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ F        BY
+    T3_PHQ8            4.088      0.207     19.766      0.000
+    T3_PROMISA         8.729      0.368     23.728      0.000
+    T3_SDQEMO          1.596      0.077     20.855      0.000
+
+ F        ON
+    T1_PUB_BIN         0.147      0.086      1.715      0.086
+    T2_MEQES           0.035      0.008      4.313      0.000
+    T2_MEQCR          -0.005      0.005     -1.046      0.296
+    T1_SELFCON        -0.038      0.004    -10.075      0.000
+    T1_GSE            -0.013      0.005     -2.632      0.008
+    T1_PARMON          0.010      0.008      1.287      0.198
+    T1_PARCON         -0.005      0.005     -0.956      0.339
+    T1_MEQES           0.016      0.010      1.638      0.101
+    T1_MEQCR          -0.010      0.007     -1.457      0.145
+    T1_DOB             0.032      0.056      0.578      0.563
+    T1_SEIFA           0.020      0.051      0.380      0.704
+    STATE_NSWR        -0.067      0.101     -0.658      0.510
+    STATE_QLD          0.045      0.076      0.597      0.550
+    STATE_WA           0.101      0.120      0.846      0.398
+
+ T2_MEQES ON
+    T1_PUB_BIN         0.323      0.199      1.626      0.104
+    T1_MEQES           0.506      0.030     16.703      0.000
+    T1_SELFCON        -0.024      0.010     -2.434      0.015
+    T1_GSE             0.008      0.016      0.518      0.604
+    T1_PARMON         -0.017      0.027     -0.642      0.521
+    T1_PARCON          0.013      0.013      0.953      0.340
+    T1_DOB            -0.107      0.172     -0.624      0.533
+    T1_SEIFA          -0.022      0.114     -0.194      0.846
+    STATE_NSWR        -0.145      0.241     -0.602      0.547
+    STATE_QLD         -0.359      0.234     -1.534      0.125
+    STATE_WA           0.279      0.266      1.049      0.294
+
+ T2_MEQCR ON
+    T1_PUB_BIN         0.504      0.312      1.616      0.106
+    T1_MEQCR           0.404      0.041      9.833      0.000
+    T1_SELFCON         0.048      0.017      2.787      0.005
+    T1_GSE             0.092      0.030      3.090      0.002
+    T1_PARMON         -0.006      0.035     -0.176      0.860
+    T1_PARCON          0.055      0.020      2.714      0.007
+    T1_DOB            -0.168      0.258     -0.651      0.515
+    T1_SEIFA          -0.041      0.197     -0.206      0.837
+    STATE_NSWR         0.151      0.457      0.330      0.741
+    STATE_QLD         -0.615      0.335     -1.837      0.066
+    STATE_WA          -0.447      0.454     -0.984      0.325
+
+ Intercepts
+    T2_MEQES           0.027      0.206      0.131      0.896
+    T2_MEQCR           0.093      0.268      0.348      0.728
+    T3_PHQ8            4.402      0.274     16.070      0.000
+    T3_PROMISA        20.564      0.554     37.090      0.000
+    T3_SDQEMO          2.189      0.097     22.669      0.000
+    F                  0.000      0.000    999.000    999.000
+
+ Residual Variances
+    T2_MEQES          10.638      0.573     18.566      0.000
+    T2_MEQCR          30.003      1.554     19.302      0.000
+    T3_PHQ8           13.037      1.572      8.293      0.000
+    T3_PROMISA        34.864      4.963      7.025      0.000
+    T3_SDQEMO          3.023      0.231     13.091      0.000
+    F                  1.000      0.000    999.000    999.000
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.218E-04
+       (ratio of smallest to largest eigenvalue)
+
+
+STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ F        BY
+    T3_PHQ8            0.776      0.028     28.059      0.000
+    T3_PROMISA         0.849      0.020     42.869      0.000
+    T3_SDQEMO          0.707      0.027     26.651      0.000
+
+ F        ON
+    T1_PUB_BIN         0.052      0.030      1.715      0.086
+    T2_MEQES           0.118      0.027      4.378      0.000
+    T2_MEQCR          -0.030      0.028     -1.046      0.296
+    T1_SELFCON        -0.281      0.027    -10.533      0.000
+    T1_GSE            -0.071      0.027     -2.631      0.009
+    T1_PARMON          0.039      0.031      1.285      0.199
+    T1_PARCON         -0.028      0.029     -0.956      0.339
+    T1_MEQES           0.049      0.030      1.636      0.102
+    T1_MEQCR          -0.048      0.033     -1.455      0.146
+    T1_DOB             0.015      0.025      0.579      0.563
+    T1_SEIFA           0.012      0.030      0.380      0.704
+    STATE_NSWR        -0.026      0.039     -0.656      0.512
+    STATE_QLD          0.019      0.031      0.596      0.551
+    STATE_WA           0.034      0.040      0.843      0.399
+
+ T2_MEQES ON
+    T1_PUB_BIN         0.034      0.021      1.630      0.103
+    T1_MEQES           0.447      0.029     15.466      0.000
+    T1_SELFCON        -0.052      0.021     -2.430      0.015
+    T1_GSE             0.013      0.025      0.518      0.604
+    T1_PARMON         -0.020      0.031     -0.640      0.522
+    T1_PARCON          0.021      0.022      0.956      0.339
+    T1_DOB            -0.014      0.023     -0.625      0.532
+    T1_SEIFA          -0.004      0.020     -0.194      0.846
+    STATE_NSWR        -0.017      0.028     -0.602      0.548
+    STATE_QLD         -0.044      0.029     -1.511      0.131
+    STATE_WA           0.028      0.027      1.040      0.298
+
+ T2_MEQCR ON
+    T1_PUB_BIN         0.032      0.020      1.615      0.106
+    T1_MEQCR           0.341      0.036      9.568      0.000
+    T1_SELFCON         0.065      0.023      2.759      0.006
+    T1_GSE             0.088      0.028      3.085      0.002
+    T1_PARMON         -0.004      0.025     -0.176      0.860
+    T1_PARCON          0.056      0.020      2.767      0.006
+    T1_DOB            -0.013      0.021     -0.652      0.515
+    T1_SEIFA          -0.004      0.021     -0.206      0.837
+    STATE_NSWR         0.010      0.032      0.329      0.742
+    STATE_QLD         -0.045      0.025     -1.804      0.071
+    STATE_WA          -0.027      0.028     -0.979      0.328
+
+ Intercepts
+    T2_MEQES           0.007      0.056      0.131      0.896
+    T2_MEQCR           0.015      0.044      0.347      0.728
+    T3_PHQ8            0.769      0.045     16.924      0.000
+    T3_PROMISA         1.839      0.073     25.024      0.000
+    T3_SDQEMO          0.891      0.040     22.436      0.000
+    F                  0.000      0.000    999.000    999.000
+
+ Residual Variances
+    T2_MEQES           0.784      0.026     29.636      0.000
+    T2_MEQCR           0.818      0.024     33.655      0.000
+    T3_PHQ8            0.397      0.043      9.248      0.000
+    T3_PROMISA         0.279      0.034      8.288      0.000
+    T3_SDQEMO          0.501      0.037     13.359      0.000
+    F                  0.845      0.016     53.616      0.000
+
+
+STDY Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ F        BY
+    T3_PHQ8            0.776      0.028     28.059      0.000
+    T3_PROMISA         0.849      0.020     42.869      0.000
+    T3_SDQEMO          0.707      0.027     26.651      0.000
+
+ F        ON
+    T1_PUB_BIN         0.135      0.079      1.716      0.086
+    T2_MEQES           0.118      0.027      4.378      0.000
+    T2_MEQCR          -0.030      0.028     -1.046      0.296
+    T1_SELFCON        -0.035      0.003    -10.622      0.000
+    T1_GSE            -0.012      0.005     -2.637      0.008
+    T1_PARMON          0.009      0.007      1.286      0.198
+    T1_PARCON         -0.005      0.005     -0.956      0.339
+    T1_MEQES           0.015      0.009      1.636      0.102
+    T1_MEQCR          -0.009      0.006     -1.456      0.146
+    T1_DOB             0.030      0.052      0.579      0.563
+    T1_SEIFA           0.018      0.047      0.380      0.704
+    STATE_NSWR        -0.061      0.093     -0.658      0.511
+    STATE_QLD          0.042      0.070      0.597      0.551
+    STATE_WA           0.093      0.110      0.847      0.397
+
+ T2_MEQES ON
+    T1_PUB_BIN         0.088      0.054      1.630      0.103
+    T1_MEQES           0.137      0.009     15.945      0.000
+    T1_SELFCON        -0.006      0.003     -2.431      0.015
+    T1_GSE             0.002      0.004      0.518      0.604
+    T1_PARMON         -0.005      0.007     -0.640      0.522
+    T1_PARCON          0.003      0.004      0.956      0.339
+    T1_DOB            -0.029      0.047     -0.625      0.532
+    T1_SEIFA          -0.006      0.031     -0.194      0.846
+    STATE_NSWR        -0.039      0.065     -0.603      0.547
+    STATE_QLD         -0.097      0.064     -1.530      0.126
+    STATE_WA           0.076      0.072      1.048      0.295
+
+ T2_MEQCR ON
+    T1_PUB_BIN         0.083      0.051      1.616      0.106
+    T1_MEQCR           0.067      0.007      9.666      0.000
+    T1_SELFCON         0.008      0.003      2.761      0.006
+    T1_GSE             0.015      0.005      3.094      0.002
+    T1_PARMON         -0.001      0.006     -0.176      0.860
+    T1_PARCON          0.009      0.003      2.769      0.006
+    T1_DOB            -0.028      0.043     -0.652      0.515
+    T1_SEIFA          -0.007      0.033     -0.206      0.837
+    STATE_NSWR         0.025      0.076      0.330      0.742
+    STATE_QLD         -0.102      0.055     -1.837      0.066
+    STATE_WA          -0.074      0.075     -0.986      0.324
+
+ Intercepts
+    T2_MEQES           0.007      0.056      0.131      0.896
+    T2_MEQCR           0.015      0.044      0.347      0.728
+    T3_PHQ8            0.769      0.045     16.924      0.000
+    T3_PROMISA         1.839      0.073     25.024      0.000
+    T3_SDQEMO          0.891      0.040     22.436      0.000
+    F                  0.000      0.000    999.000    999.000
+
+ Residual Variances
+    T2_MEQES           0.784      0.026     29.636      0.000
+    T2_MEQCR           0.818      0.024     33.655      0.000
+    T3_PHQ8            0.397      0.043      9.248      0.000
+    T3_PROMISA         0.279      0.034      8.288      0.000
+    T3_SDQEMO          0.501      0.037     13.359      0.000
+    F                  0.845      0.016     53.616      0.000
+
+
+STD Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ F        BY
+    T3_PHQ8            4.447      0.230     19.353      0.000
+    T3_PROMISA         9.496      0.385     24.661      0.000
+    T3_SDQEMO          1.737      0.084     20.626      0.000
+
+ F        ON
+    T1_PUB_BIN         0.135      0.079      1.716      0.086
+    T2_MEQES           0.032      0.007      4.365      0.000
+    T2_MEQCR          -0.005      0.005     -1.049      0.294
+    T1_SELFCON        -0.035      0.003    -10.622      0.000
+    T1_GSE            -0.012      0.005     -2.637      0.008
+    T1_PARMON          0.009      0.007      1.286      0.198
+    T1_PARCON         -0.005      0.005     -0.956      0.339
+    T1_MEQES           0.015      0.009      1.636      0.102
+    T1_MEQCR          -0.009      0.006     -1.456      0.146
+    T1_DOB             0.030      0.052      0.579      0.563
+    T1_SEIFA           0.018      0.047      0.380      0.704
+    STATE_NSWR        -0.061      0.093     -0.658      0.511
+    STATE_QLD          0.042      0.070      0.597      0.551
+    STATE_WA           0.093      0.110      0.847      0.397
+
+ T2_MEQES ON
+    T1_PUB_BIN         0.323      0.199      1.626      0.104
+    T1_MEQES           0.506      0.030     16.703      0.000
+    T1_SELFCON        -0.024      0.010     -2.434      0.015
+    T1_GSE             0.008      0.016      0.518      0.604
+    T1_PARMON         -0.017      0.027     -0.642      0.521
+    T1_PARCON          0.013      0.013      0.953      0.340
+    T1_DOB            -0.107      0.172     -0.624      0.533
+    T1_SEIFA          -0.022      0.114     -0.194      0.846
+    STATE_NSWR        -0.145      0.241     -0.602      0.547
+    STATE_QLD         -0.359      0.234     -1.534      0.125
+    STATE_WA           0.279      0.266      1.049      0.294
+
+ T2_MEQCR ON
+    T1_PUB_BIN         0.504      0.312      1.616      0.106
+    T1_MEQCR           0.404      0.041      9.833      0.000
+    T1_SELFCON         0.048      0.017      2.787      0.005
+    T1_GSE             0.092      0.030      3.090      0.002
+    T1_PARMON         -0.006      0.035     -0.176      0.860
+    T1_PARCON          0.055      0.020      2.714      0.007
+    T1_DOB            -0.168      0.258     -0.651      0.515
+    T1_SEIFA          -0.041      0.197     -0.206      0.837
+    STATE_NSWR         0.151      0.457      0.330      0.741
+    STATE_QLD         -0.615      0.335     -1.837      0.066
+    STATE_WA          -0.447      0.454     -0.984      0.325
+
+ Intercepts
+    T2_MEQES           0.027      0.206      0.131      0.896
+    T2_MEQCR           0.093      0.268      0.348      0.728
+    T3_PHQ8            4.402      0.274     16.070      0.000
+    T3_PROMISA        20.564      0.554     37.090      0.000
+    T3_SDQEMO          2.189      0.097     22.669      0.000
+    F                  0.000      0.000    999.000    999.000
+
+ Residual Variances
+    T2_MEQES          10.638      0.573     18.566      0.000
+    T2_MEQCR          30.003      1.554     19.302      0.000
+    T3_PHQ8           13.037      1.572      8.293      0.000
+    T3_PROMISA        34.864      4.963      7.025      0.000
+    T3_SDQEMO          3.023      0.231     13.091      0.000
+    F                  0.845      0.016     53.616      0.000
+
+
+R-SQUARE
+
+    Observed                                        Two-Tailed
+    Variable        Estimate       S.E.  Est./S.E.    P-Value
+
+    T2_MEQES           0.216      0.026      8.184      0.000
+    T2_MEQCR           0.182      0.024      7.495      0.000
+    T3_PHQ8            0.603      0.043     14.030      0.000
+    T3_PROMI           0.721      0.034     21.434      0.000
+    T3_SDQEM           0.499      0.037     13.326      0.000
+
+     Latent                                         Two-Tailed
+    Variable        Estimate       S.E.  Est./S.E.    P-Value
+
+    F                  0.155      0.016      9.838      0.000
+
+
+TOTAL, TOTAL INDIRECT, SPECIFIC INDIRECT, AND DIRECT EFFECTS
+
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+Effects from T1_PUB_B to F
+
+  Total                0.156      0.087      1.782      0.075
+  Total indirect       0.009      0.007      1.168      0.243
+
+  Specific indirect 1
+    F
+    T2_MEQES
+    T1_PUB_B           0.011      0.008      1.488      0.137
+
+  Specific indirect 2
+    F
+    T2_MEQCR
+    T1_PUB_B          -0.003      0.003     -0.893      0.372
+
+  Direct
+    F
+    T1_PUB_B           0.147      0.086      1.715      0.086
+
+
+
+STANDARDIZED TOTAL, TOTAL INDIRECT, SPECIFIC INDIRECT, AND DIRECT EFFECTS
+
+
+STDYX Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+Effects from T1_PUB_B to F
+
+  Total                0.055      0.031      1.781      0.075
+  Total indirect       0.003      0.003      1.168      0.243
+
+  Specific indirect 1
+    F
+    T2_MEQES
+    T1_PUB_B           0.004      0.003      1.491      0.136
+
+  Specific indirect 2
+    F
+    T2_MEQCR
+    T1_PUB_B          -0.001      0.001     -0.895      0.371
+
+  Direct
+    F
+    T1_PUB_B           0.052      0.030      1.715      0.086
+
+
+
+STDY Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+Effects from T1_PUB_B to F
+
+  Total                0.143      0.080      1.782      0.075
+  Total indirect       0.008      0.007      1.169      0.243
+
+  Specific indirect 1
+    F
+    T2_MEQES
+    T1_PUB_B           0.010      0.007      1.491      0.136
+
+  Specific indirect 2
+    F
+    T2_MEQCR
+    T1_PUB_B          -0.002      0.003     -0.895      0.371
+
+  Direct
+    F
+    T1_PUB_B           0.135      0.079      1.716      0.086
+
+
+
+STD Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+Effects from T1_PUB_B to F
+
+  Total                0.143      0.080      1.782      0.075
+  Total indirect       0.008      0.007      1.169      0.243
+
+  Specific indirect 1
+    F
+    T2_MEQES
+    T1_PUB_B           0.010      0.007      1.491      0.136
+
+  Specific indirect 2
+    F
+    T2_MEQCR
+    T1_PUB_B          -0.002      0.003     -0.895      0.371
+
+  Direct
+    F
+    T1_PUB_B           0.135      0.079      1.716      0.086
+
+
+
+
+CONFIDENCE INTERVALS OF MODEL RESULTS
+
+                  Lower .5%  Lower 2.5%    Lower 5%    Estimate    Upper 5%  Upper 2.5%   Upper .5%
+
+ F        BY
+    T3_PHQ8          3.555       3.683       3.748       4.088       4.428       4.493       4.621
+    T3_PROMISA       7.781       8.008       8.123       8.729       9.334       9.450       9.676
+    T3_SDQEMO        1.399       1.446       1.470       1.596       1.722       1.746       1.794
+
+ F        ON
+    T1_PUB_BIN      -0.074      -0.021       0.006       0.147       0.288       0.315       0.368
+    T2_MEQES         0.014       0.019       0.022       0.035       0.048       0.051       0.056
+    T2_MEQCR        -0.018      -0.015      -0.014      -0.005       0.003       0.005       0.008
+    T1_SELFCON      -0.047      -0.045      -0.044      -0.038      -0.032      -0.030      -0.028
+    T1_GSE          -0.027      -0.023      -0.022      -0.013      -0.005      -0.003       0.000
+    T1_PARMON       -0.010      -0.005      -0.003       0.010       0.023       0.025       0.030
+    T1_PARCON       -0.018      -0.015      -0.013      -0.005       0.004       0.005       0.008
+    T1_MEQES        -0.009      -0.003       0.000       0.016       0.033       0.036       0.042
+    T1_MEQCR        -0.028      -0.024      -0.022      -0.010       0.001       0.003       0.008
+    T1_DOB          -0.112      -0.078      -0.060       0.032       0.125       0.143       0.177
+    T1_SEIFA        -0.113      -0.081      -0.065       0.020       0.104       0.120       0.152
+    STATE_NSWR      -0.327      -0.265      -0.233      -0.067       0.100       0.132       0.194
+    STATE_QLD       -0.151      -0.104      -0.080       0.045       0.171       0.195       0.242
+    STATE_WA        -0.207      -0.133      -0.096       0.101       0.298       0.336       0.410
+
+ T2_MEQES ON
+    T1_PUB_BIN      -0.189      -0.066      -0.004       0.323       0.651       0.713       0.836
+    T1_MEQES         0.428       0.446       0.456       0.506       0.556       0.565       0.584
+    T1_SELFCON      -0.049      -0.043      -0.040      -0.024      -0.008      -0.005       0.001
+    T1_GSE          -0.034      -0.024      -0.018       0.008       0.035       0.040       0.050
+    T1_PARMON       -0.085      -0.069      -0.061      -0.017       0.027       0.035       0.051
+    T1_PARCON       -0.022      -0.013      -0.009       0.013       0.035       0.039       0.047
+    T1_DOB          -0.549      -0.443      -0.389      -0.107       0.175       0.229       0.335
+    T1_SEIFA        -0.316      -0.246      -0.210      -0.022       0.165       0.201       0.272
+    STATE_NSWR      -0.765      -0.617      -0.541      -0.145       0.251       0.327       0.475
+    STATE_QLD       -0.962      -0.818      -0.744      -0.359       0.026       0.100       0.244
+    STATE_WA        -0.406      -0.242      -0.158       0.279       0.716       0.799       0.963
+
+ T2_MEQCR ON
+    T1_PUB_BIN      -0.299      -0.107      -0.009       0.504       1.017       1.115       1.307
+    T1_MEQCR         0.298       0.324       0.337       0.404       0.472       0.485       0.510
+    T1_SELFCON       0.004       0.014       0.020       0.048       0.077       0.083       0.093
+    T1_GSE           0.015       0.034       0.043       0.092       0.142       0.151       0.169
+    T1_PARMON       -0.096      -0.075      -0.064      -0.006       0.051       0.062       0.084
+    T1_PARCON        0.003       0.015       0.022       0.055       0.088       0.094       0.106
+    T1_DOB          -0.834      -0.675      -0.593      -0.168       0.257       0.338       0.497
+    T1_SEIFA        -0.548      -0.427      -0.365      -0.041       0.284       0.346       0.467
+    STATE_NSWR      -1.026      -0.745      -0.601       0.151       0.903       1.047       1.328
+    STATE_QLD       -1.478      -1.272      -1.166      -0.615      -0.064       0.041       0.248
+    STATE_WA        -1.616      -1.337      -1.194      -0.447       0.300       0.443       0.723
+
+ Intercepts
+    T2_MEQES        -0.503      -0.376      -0.312       0.027       0.365       0.430       0.557
+    T2_MEQCR        -0.596      -0.431      -0.347       0.093       0.533       0.617       0.782
+    T3_PHQ8          3.697       3.866       3.952       4.402       4.853       4.939       5.108
+    T3_PROMI        19.136      19.477      19.652      20.564      21.476      21.650      21.992
+    T3_SDQEM         1.940       1.999       2.030       2.189       2.347       2.378       2.437
+    F                0.000       0.000       0.000       0.000       0.000       0.000       0.000
+
+ Residual Variances
+    T2_MEQES         9.162       9.515       9.696      10.638      11.581      11.762      12.114
+    T2_MEQCR        25.999      26.957      27.446      30.003      32.560      33.050      34.007
+    T3_PHQ8          8.988       9.956      10.451      13.037      15.623      16.118      17.086
+    T3_PROMI        22.080      25.136      26.699      34.864      43.028      44.592      47.648
+    T3_SDQEM         2.429       2.571       2.644       3.023       3.403       3.476       3.618
+    F                1.000       1.000       1.000       1.000       1.000       1.000       1.000
+
+
+CONFIDENCE INTERVALS OF STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                  Lower .5%  Lower 2.5%    Lower 5%    Estimate    Upper 5%  Upper 2.5%   Upper .5%
+
+ F        BY
+    T3_PHQ8          0.705       0.722       0.731       0.776       0.822       0.831       0.848
+    T3_PROMISA       0.798       0.810       0.817       0.849       0.882       0.888       0.900
+    T3_SDQEMO        0.638       0.655       0.663       0.707       0.750       0.759       0.775
+
+ F        ON
+    T1_PUB_BIN      -0.026      -0.007       0.002       0.052       0.102       0.112       0.130
+    T2_MEQES         0.049       0.065       0.074       0.118       0.163       0.171       0.188
+    T2_MEQCR        -0.102      -0.085      -0.076      -0.030       0.017       0.026       0.043
+    T1_SELFCON      -0.349      -0.333      -0.325      -0.281      -0.237      -0.228      -0.212
+    T1_GSE          -0.141      -0.124      -0.116      -0.071      -0.027      -0.018      -0.001
+    T1_PARMON       -0.040      -0.021      -0.011       0.039       0.090       0.100       0.119
+    T1_PARCON       -0.104      -0.086      -0.076      -0.028       0.020       0.029       0.048
+    T1_MEQES        -0.028      -0.010       0.000       0.049       0.098       0.108       0.126
+    T1_MEQCR        -0.132      -0.112      -0.101      -0.048       0.006       0.017       0.037
+    T1_DOB          -0.050      -0.035      -0.027       0.015       0.056       0.064       0.079
+    T1_SEIFA        -0.067      -0.048      -0.038       0.012       0.062       0.071       0.090
+    STATE_NSWR      -0.127      -0.103      -0.090      -0.026       0.039       0.051       0.075
+    STATE_QLD       -0.062      -0.043      -0.033       0.019       0.070       0.080       0.099
+    STATE_WA        -0.070      -0.045      -0.032       0.034       0.100       0.113       0.138
+
+ T2_MEQES ON
+    T1_PUB_BIN      -0.020      -0.007       0.000       0.034       0.068       0.075       0.087
+    T1_MEQES         0.373       0.390       0.399       0.447       0.494       0.504       0.521
+    T1_SELFCON      -0.107      -0.094      -0.087      -0.052      -0.017      -0.010       0.003
+    T1_GSE          -0.052      -0.037      -0.029       0.013       0.055       0.063       0.079
+    T1_PARMON       -0.101      -0.082      -0.072      -0.020       0.032       0.041       0.061
+    T1_PARCON       -0.036      -0.022      -0.015       0.021       0.058       0.065       0.079
+    T1_DOB          -0.072      -0.058      -0.051      -0.014       0.023       0.030       0.044
+    T1_SEIFA        -0.055      -0.043      -0.037      -0.004       0.029       0.035       0.047
+    STATE_NSWR      -0.088      -0.071      -0.062      -0.017       0.029       0.037       0.054
+    STATE_QLD       -0.118      -0.100      -0.091      -0.044       0.004       0.013       0.031
+    STATE_WA        -0.041      -0.024      -0.016       0.028       0.071       0.080       0.096
+
+ T2_MEQCR ON
+    T1_PUB_BIN      -0.019      -0.007      -0.001       0.032       0.065       0.071       0.083
+    T1_MEQCR         0.249       0.271       0.283       0.341       0.400       0.411       0.433
+    T1_SELFCON       0.004       0.019       0.026       0.065       0.103       0.111       0.125
+    T1_GSE           0.015       0.032       0.041       0.088       0.135       0.144       0.161
+    T1_PARMON       -0.069      -0.053      -0.046      -0.004       0.037       0.045       0.060
+    T1_PARCON        0.004       0.016       0.023       0.056       0.089       0.095       0.108
+    T1_DOB          -0.067      -0.054      -0.048      -0.013       0.021       0.027       0.040
+    T1_SEIFA        -0.058      -0.045      -0.039      -0.004       0.030       0.037       0.050
+    STATE_NSWR      -0.072      -0.052      -0.042       0.010       0.063       0.073       0.092
+    STATE_QLD       -0.110      -0.095      -0.087      -0.045      -0.004       0.004       0.019
+    STATE_WA        -0.098      -0.081      -0.072      -0.027       0.018       0.027       0.044
+
+ Intercepts
+    T2_MEQES        -0.137      -0.102      -0.085       0.007       0.099       0.117       0.151
+    T2_MEQCR        -0.098      -0.071      -0.057       0.015       0.088       0.102       0.129
+    T3_PHQ8          0.652       0.680       0.694       0.769       0.843       0.858       0.886
+    T3_PROMI         1.650       1.695       1.718       1.839       1.960       1.983       2.028
+    T3_SDQEM         0.788       0.813       0.825       0.891       0.956       0.968       0.993
+    F                0.000       0.000       0.000       0.000       0.000       0.000       0.000
+
+ Residual Variances
+    T2_MEQES         0.716       0.732       0.740       0.784       0.827       0.835       0.852
+    T2_MEQCR         0.755       0.770       0.778       0.818       0.858       0.865       0.880
+    T3_PHQ8          0.287       0.313       0.327       0.397       0.468       0.481       0.508
+    T3_PROMI         0.192       0.213       0.223       0.279       0.334       0.345       0.366
+    T3_SDQEM         0.404       0.427       0.439       0.501       0.562       0.574       0.597
+    F                0.804       0.814       0.819       0.845       0.871       0.876       0.886
+
+
+STDY Standardization
+
+                  Lower .5%  Lower 2.5%    Lower 5%    Estimate    Upper 5%  Upper 2.5%   Upper .5%
+
+ F        BY
+    T3_PHQ8          0.705       0.722       0.731       0.776       0.822       0.831       0.848
+    T3_PROMISA       0.798       0.810       0.817       0.849       0.882       0.888       0.900
+    T3_SDQEMO        0.638       0.655       0.663       0.707       0.750       0.759       0.775
+
+ F        ON
+    T1_PUB_BIN      -0.068      -0.019       0.006       0.135       0.265       0.290       0.338
+    T2_MEQES         0.049       0.065       0.074       0.118       0.163       0.171       0.188
+    T2_MEQCR        -0.102      -0.085      -0.076      -0.030       0.017       0.026       0.043
+    T1_SELFCON      -0.043      -0.041      -0.040      -0.035      -0.029      -0.028      -0.026
+    T1_GSE          -0.024      -0.022      -0.020      -0.012      -0.005      -0.003       0.000
+    T1_PARMON       -0.009      -0.005      -0.003       0.009       0.021       0.023       0.027
+    T1_PARCON       -0.017      -0.014      -0.012      -0.005       0.003       0.005       0.008
+    T1_MEQES        -0.009      -0.003       0.000       0.015       0.030       0.033       0.039
+    T1_MEQCR        -0.026      -0.022      -0.020      -0.009       0.001       0.003       0.007
+    T1_DOB          -0.103      -0.071      -0.055       0.030       0.115       0.131       0.163
+    T1_SEIFA        -0.104      -0.075      -0.060       0.018       0.096       0.110       0.140
+    STATE_NSWR      -0.301      -0.243      -0.214      -0.061       0.092       0.121       0.178
+    STATE_QLD       -0.138      -0.095      -0.073       0.042       0.157       0.179       0.222
+    STATE_WA        -0.190      -0.122      -0.088       0.093       0.274       0.308       0.376
+
+ T2_MEQES ON
+    T1_PUB_BIN      -0.051      -0.018      -0.001       0.088       0.176       0.193       0.226
+    T1_MEQES         0.115       0.120       0.123       0.137       0.151       0.154       0.159
+    T1_SELFCON      -0.013      -0.012      -0.011      -0.006      -0.002      -0.001       0.000
+    T1_GSE          -0.009      -0.006      -0.005       0.002       0.010       0.011       0.014
+    T1_PARMON       -0.023      -0.019      -0.017      -0.005       0.007       0.010       0.014
+    T1_PARCON       -0.006      -0.004      -0.002       0.003       0.009       0.011       0.013
+    T1_DOB          -0.149      -0.120      -0.106      -0.029       0.047       0.062       0.091
+    T1_SEIFA        -0.086      -0.067      -0.057      -0.006       0.045       0.055       0.074
+    STATE_NSWR      -0.207      -0.167      -0.147      -0.039       0.068       0.089       0.129
+    STATE_QLD       -0.262      -0.222      -0.202      -0.097       0.007       0.027       0.067
+    STATE_WA        -0.110      -0.066      -0.043       0.076       0.194       0.217       0.262
+
+ T2_MEQCR ON
+    T1_PUB_BIN      -0.049      -0.018      -0.002       0.083       0.168       0.184       0.216
+    T1_MEQCR         0.049       0.053       0.055       0.067       0.078       0.080       0.085
+    T1_SELFCON       0.001       0.002       0.003       0.008       0.013       0.014       0.015
+    T1_GSE           0.003       0.006       0.007       0.015       0.023       0.025       0.028
+    T1_PARMON       -0.016      -0.012      -0.010      -0.001       0.008       0.010       0.014
+    T1_PARCON        0.001       0.003       0.004       0.009       0.014       0.015       0.017
+    T1_DOB          -0.138      -0.111      -0.098      -0.028       0.042       0.056       0.082
+    T1_SEIFA        -0.090      -0.070      -0.060      -0.007       0.047       0.057       0.077
+    STATE_NSWR      -0.170      -0.123      -0.099       0.025       0.149       0.173       0.219
+    STATE_QLD       -0.244      -0.210      -0.193      -0.102      -0.011       0.007       0.041
+    STATE_WA        -0.266      -0.220      -0.197      -0.074       0.049       0.073       0.119
+
+ Intercepts
+    T2_MEQES        -0.137      -0.102      -0.085       0.007       0.099       0.117       0.151
+    T2_MEQCR        -0.098      -0.071      -0.057       0.015       0.088       0.102       0.129
+    T3_PHQ8          0.652       0.680       0.694       0.769       0.843       0.858       0.886
+    T3_PROMI         1.650       1.695       1.718       1.839       1.960       1.983       2.028
+    T3_SDQEM         0.788       0.813       0.825       0.891       0.956       0.968       0.993
+    F                0.000       0.000       0.000       0.000       0.000       0.000       0.000
+
+ Residual Variances
+    T2_MEQES         0.716       0.732       0.740       0.784       0.827       0.835       0.852
+    T2_MEQCR         0.755       0.770       0.778       0.818       0.858       0.865       0.880
+    T3_PHQ8          0.287       0.313       0.327       0.397       0.468       0.481       0.508
+    T3_PROMI         0.192       0.213       0.223       0.279       0.334       0.345       0.366
+    T3_SDQEM         0.404       0.427       0.439       0.501       0.562       0.574       0.597
+    F                0.804       0.814       0.819       0.845       0.871       0.876       0.886
+
+
+STD Standardization
+
+                  Lower .5%  Lower 2.5%    Lower 5%    Estimate    Upper 5%  Upper 2.5%   Upper .5%
+
+ F        BY
+    T3_PHQ8          3.855       3.997       4.069       4.447       4.825       4.898       5.039
+    T3_PROMISA       8.504       8.741       8.862       9.496      10.129      10.250      10.487
+    T3_SDQEMO        1.520       1.572       1.598       1.737       1.875       1.902       1.954
+
+ F        ON
+    T1_PUB_BIN      -0.068      -0.019       0.006       0.135       0.265       0.290       0.338
+    T2_MEQES         0.013       0.018       0.020       0.032       0.044       0.047       0.051
+    T2_MEQCR        -0.017      -0.014      -0.013      -0.005       0.003       0.004       0.007
+    T1_SELFCON      -0.043      -0.041      -0.040      -0.035      -0.029      -0.028      -0.026
+    T1_GSE          -0.024      -0.022      -0.020      -0.012      -0.005      -0.003       0.000
+    T1_PARMON       -0.009      -0.005      -0.003       0.009       0.021       0.023       0.027
+    T1_PARCON       -0.017      -0.014      -0.012      -0.005       0.003       0.005       0.008
+    T1_MEQES        -0.009      -0.003       0.000       0.015       0.030       0.033       0.039
+    T1_MEQCR        -0.026      -0.022      -0.020      -0.009       0.001       0.003       0.007
+    T1_DOB          -0.103      -0.071      -0.055       0.030       0.115       0.131       0.163
+    T1_SEIFA        -0.104      -0.075      -0.060       0.018       0.096       0.110       0.140
+    STATE_NSWR      -0.301      -0.243      -0.214      -0.061       0.092       0.121       0.178
+    STATE_QLD       -0.138      -0.095      -0.073       0.042       0.157       0.179       0.222
+    STATE_WA        -0.190      -0.122      -0.088       0.093       0.274       0.308       0.376
+
+ T2_MEQES ON
+    T1_PUB_BIN      -0.189      -0.066      -0.004       0.323       0.651       0.713       0.836
+    T1_MEQES         0.428       0.446       0.456       0.506       0.556       0.565       0.584
+    T1_SELFCON      -0.049      -0.043      -0.040      -0.024      -0.008      -0.005       0.001
+    T1_GSE          -0.034      -0.024      -0.018       0.008       0.035       0.040       0.050
+    T1_PARMON       -0.085      -0.069      -0.061      -0.017       0.027       0.035       0.051
+    T1_PARCON       -0.022      -0.013      -0.009       0.013       0.035       0.039       0.047
+    T1_DOB          -0.549      -0.443      -0.389      -0.107       0.175       0.229       0.335
+    T1_SEIFA        -0.316      -0.246      -0.210      -0.022       0.165       0.201       0.272
+    STATE_NSWR      -0.765      -0.617      -0.541      -0.145       0.251       0.327       0.475
+    STATE_QLD       -0.962      -0.818      -0.744      -0.359       0.026       0.100       0.244
+    STATE_WA        -0.406      -0.242      -0.158       0.279       0.716       0.799       0.963
+
+ T2_MEQCR ON
+    T1_PUB_BIN      -0.299      -0.107      -0.009       0.504       1.017       1.115       1.307
+    T1_MEQCR         0.298       0.324       0.337       0.404       0.472       0.485       0.510
+    T1_SELFCON       0.004       0.014       0.020       0.048       0.077       0.083       0.093
+    T1_GSE           0.015       0.034       0.043       0.092       0.142       0.151       0.169
+    T1_PARMON       -0.096      -0.075      -0.064      -0.006       0.051       0.062       0.084
+    T1_PARCON        0.003       0.015       0.022       0.055       0.088       0.094       0.106
+    T1_DOB          -0.834      -0.675      -0.593      -0.168       0.257       0.338       0.497
+    T1_SEIFA        -0.548      -0.427      -0.365      -0.041       0.284       0.346       0.467
+    STATE_NSWR      -1.026      -0.745      -0.601       0.151       0.903       1.047       1.328
+    STATE_QLD       -1.478      -1.272      -1.166      -0.615      -0.064       0.041       0.248
+    STATE_WA        -1.616      -1.337      -1.194      -0.447       0.300       0.443       0.723
+
+ Intercepts
+    T2_MEQES        -0.503      -0.376      -0.312       0.027       0.365       0.430       0.557
+    T2_MEQCR        -0.596      -0.431      -0.347       0.093       0.533       0.617       0.782
+    T3_PHQ8          3.697       3.866       3.952       4.402       4.853       4.939       5.108
+    T3_PROMI        19.136      19.477      19.652      20.564      21.476      21.650      21.992
+    T3_SDQEM         1.940       1.999       2.030       2.189       2.347       2.378       2.437
+    F                0.000       0.000       0.000       0.000       0.000       0.000       0.000
+
+ Residual Variances
+    T2_MEQES         9.162       9.515       9.696      10.638      11.581      11.762      12.114
+    T2_MEQCR        25.999      26.957      27.446      30.003      32.560      33.050      34.007
+    T3_PHQ8          8.988       9.956      10.451      13.037      15.623      16.118      17.086
+    T3_PROMI        22.080      25.136      26.699      34.864      43.028      44.592      47.648
+    T3_SDQEM         2.429       2.571       2.644       3.023       3.403       3.476       3.618
+    F                0.804       0.814       0.819       0.845       0.871       0.876       0.886
+
+
+CONFIDENCE INTERVALS OF TOTAL, TOTAL INDIRECT, SPECIFIC INDIRECT, AND DIRECT EFFECTS
+
+
+                  Lower .5%  Lower 2.5%    Lower 5%    Estimate    Upper 5%  Upper 2.5%   Upper .5%
+
+Effects from T1_PUB_B to F
+
+  Total             -0.069      -0.016       0.012       0.156       0.299       0.327       0.381
+  Total indirect    -0.010      -0.006      -0.004       0.009       0.021       0.023       0.028
+
+  Specific indirect 1
+    F
+    T2_MEQES
+    T1_PUB_B        -0.008      -0.004      -0.001       0.011       0.024       0.026       0.031
+
+  Specific indirect 2
+    F
+    T2_MEQCR
+    T1_PUB_B        -0.010      -0.009      -0.008      -0.003       0.002       0.003       0.005
+
+  Direct
+    F
+    T1_PUB_B        -0.074      -0.021       0.006       0.147       0.288       0.315       0.368
+
+
+
+CONFIDENCE INTERVALS OF STANDARDIZED TOTAL, TOTAL INDIRECT, SPECIFIC INDIRECT, AND DIRECT EFFECTS
+
+
+STDYX Standardization
+
+                  Lower .5%  Lower 2.5%    Lower 5%    Estimate    Upper 5%  Upper 2.5%   Upper .5%
+
+Effects from T1_PUB_B to F
+
+  Total             -0.025      -0.006       0.004       0.055       0.106       0.116       0.135
+  Total indirect    -0.004      -0.002      -0.001       0.003       0.007       0.008       0.010
+
+  Specific indirect 1
+    F
+    T2_MEQES
+    T1_PUB_B        -0.003      -0.001       0.000       0.004       0.008       0.009       0.011
+
+  Specific indirect 2
+    F
+    T2_MEQCR
+    T1_PUB_B        -0.004      -0.003      -0.003      -0.001       0.001       0.001       0.002
+
+  Direct
+    F
+    T1_PUB_B        -0.026      -0.007       0.002       0.052       0.102       0.112       0.130
+
+
+
+STDY Standardization
+
+                  Lower .5%  Lower 2.5%    Lower 5%    Estimate    Upper 5%  Upper 2.5%   Upper .5%
+
+Effects from T1_PUB_B to F
+
+  Total             -0.064      -0.014       0.011       0.143       0.275       0.300       0.350
+  Total indirect    -0.010      -0.005      -0.003       0.008       0.019       0.021       0.025
+
+  Specific indirect 1
+    F
+    T2_MEQES
+    T1_PUB_B        -0.008      -0.003      -0.001       0.010       0.022       0.024       0.028
+
+  Specific indirect 2
+    F
+    T2_MEQCR
+    T1_PUB_B        -0.010      -0.008      -0.007      -0.002       0.002       0.003       0.005
+
+  Direct
+    F
+    T1_PUB_B        -0.068      -0.019       0.006       0.135       0.265       0.290       0.338
+
+
+
+STD Standardization
+
+                  Lower .5%  Lower 2.5%    Lower 5%    Estimate    Upper 5%  Upper 2.5%   Upper .5%
+
+Effects from T1_PUB_B to F
+
+  Total             -0.064      -0.014       0.011       0.143       0.275       0.300       0.350
+  Total indirect    -0.010      -0.005      -0.003       0.008       0.019       0.021       0.025
+
+  Specific indirect 1
+    F
+    T2_MEQES
+    T1_PUB_B        -0.008      -0.003      -0.001       0.010       0.022       0.024       0.028
+
+  Specific indirect 2
+    F
+    T2_MEQCR
+    T1_PUB_B        -0.010      -0.008      -0.007      -0.002       0.002       0.003       0.005
+
+  Direct
+    F
+    T1_PUB_B        -0.068      -0.019       0.006       0.135       0.265       0.290       0.338
+
+
+
+
+DIAGRAM INFORMATION
+
+  Use View Diagram under the Diagram menu in the Mplus Editor to view the diagram.
+  If running Mplus from the Mplus Diagrammer, the diagram opens automatically.
+
+  Diagram output
+    d:\onedrive - the university of sydney (staff)\cre\psychiatric epidemiology\pubertal timing and int\model1-male.dgm
+
+     Beginning Time:  10:30:30
+        Ending Time:  10:30:31
+       Elapsed Time:  00:00:01
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2022 Muthen & Muthen

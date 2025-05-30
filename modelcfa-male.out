@@ -1,0 +1,308 @@
+Mplus VERSION 8.8
+MUTHEN & MUTHEN
+02/11/2025   3:29 PM
+
+INPUT INSTRUCTIONS
+
+  Title: H4L pubertal timing and internalising mediation analysis
+
+  data: file= h4lmed.csv;
+
+  variable: names are id sex trialgrp cluster t1_dob
+  t1_phq8 t1_promisa t1_meqcr t1_meqes t1_sdqemo t1_pub_cat
+  t2_meqcr t2_meqes t2_dob t3_phq8 t3_promisa t3_sdqemo t3_dob
+  t1_seifa state_nswr state_qld state_wa male female notsay
+  t1_pub_bin;
+
+  SUBPOPULATION = male EQ 1;
+
+  usevariables =
+  t3_phq8 t3_promisa t3_sdqemo;
+
+
+  missing = .;
+
+  cluster=cluster;
+
+  ANALYSIS: estimator=mlr; type=complex;
+
+
+  model:
+  f by t3_phq8 t3_promisa t3_sdqemo;
+
+
+  output: standardized;
+
+
+
+*** WARNING in VARIABLE command
+  Note that only the first 8 characters of variable names are used in the output.
+  Shorten variable names to avoid any confusion.
+*** WARNING
+  Data set contains cases with missing on all variables.
+  These cases were not included in the analysis.
+  Number of cases with missing on all variables:  1449
+   2 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+H4L pubertal timing and internalising mediation analysis
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        2504
+
+Number of dependent variables                                    3
+Number of independent variables                                  0
+Number of continuous latent variables                            1
+
+Observed dependent variables
+
+  Continuous
+   T3_PHQ8     T3_PROMISA  T3_SDQEMO
+
+Continuous latent variables
+   F
+
+Variables with special functions
+
+  Cluster variable      CLUSTER
+
+Estimator                                                      MLR
+Information matrix                                        OBSERVED
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+
+Input data file(s)
+  h4lmed.csv
+
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns             7
+     Number of clusters                         61
+
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     T3_PHQ8               4.594       1.729       0.000   30.10%       0.000      1.000      3.000
+            2495.000      33.071       2.711      24.000    2.77%       4.000      8.000
+     T3_PROMISA           20.984       2.052      13.000   30.58%      13.000     15.000     16.000
+            2485.000     125.658       4.392      65.000    2.17%      19.000     27.000
+     T3_SDQEMO             2.275       1.183       0.000   31.44%       0.000      1.000      1.000
+            2363.000       6.106       0.867      10.000    2.20%       2.000      5.000
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                        9
+
+Loglikelihood
+
+          H0 Value                      -21586.210
+          H0 Scaling Correction Factor      2.5621
+            for MLR
+          H1 Value                      -21586.210
+          H1 Scaling Correction Factor      2.5621
+            for MLR
+
+Information Criteria
+
+          Akaike (AIC)                   43190.420
+          Bayesian (BIC)                 43242.851
+          Sample-Size Adjusted BIC       43214.256
+            (n* = (n + 2) / 24)
+
+Chi-Square Test of Model Fit
+
+          Value                              0.000*
+          Degrees of Freedom                     0
+          P-Value                           0.0000
+          Scaling Correction Factor         1.0000
+            for MLR
+
+*   The chi-square value for MLM, MLMV, MLR, ULSMV, WLSM and WLSMV cannot be used
+    for chi-square difference testing in the regular way.  MLM, MLR and WLSM
+    chi-square difference testing is described on the Mplus website.  MLMV, WLSMV,
+    and ULSMV difference testing is done using the DIFFTEST option.
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.000
+          90 Percent C.I.                    0.000  0.000
+          Probability RMSEA <= .05           0.000
+
+CFI/TLI
+
+          CFI                                1.000
+          TLI                                1.000
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                            845.119
+          Degrees of Freedom                     3
+          P-Value                           0.0000
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value                              0.000
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ F        BY
+    T3_PHQ8            1.000      0.000    999.000    999.000
+    T3_PROMISA         2.339      0.081     28.837      0.000
+    T3_SDQEMO          0.411      0.018     22.225      0.000
+
+ Intercepts
+    T3_PHQ8            4.598      0.154     29.885      0.000
+    T3_PROMISA        20.975      0.262     80.065      0.000
+    T3_SDQEMO          2.266      0.055     41.377      0.000
+
+ Variances
+    F                 18.069      1.212     14.905      0.000
+
+ Residual Variances
+    T3_PHQ8           15.040      1.279     11.763      0.000
+    T3_PROMISA        26.558      3.716      7.148      0.000
+    T3_SDQEMO          3.026      0.184     16.448      0.000
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.232E-02
+       (ratio of smallest to largest eigenvalue)
+
+
+STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ F        BY
+    T3_PHQ8            0.739      0.017     42.251      0.000
+    T3_PROMISA         0.888      0.015     59.532      0.000
+    T3_SDQEMO          0.708      0.023     30.586      0.000
+
+ Intercepts
+    T3_PHQ8            0.799      0.015     52.297      0.000
+    T3_PROMISA         1.873      0.033     56.342      0.000
+    T3_SDQEMO          0.920      0.016     57.838      0.000
+
+ Variances
+    F                  1.000      0.000    999.000    999.000
+
+ Residual Variances
+    T3_PHQ8            0.454      0.026     17.584      0.000
+    T3_PROMISA         0.212      0.026      7.998      0.000
+    T3_SDQEMO          0.498      0.033     15.196      0.000
+
+
+STDY Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ F        BY
+    T3_PHQ8            0.739      0.017     42.251      0.000
+    T3_PROMISA         0.888      0.015     59.532      0.000
+    T3_SDQEMO          0.708      0.023     30.586      0.000
+
+ Intercepts
+    T3_PHQ8            0.799      0.015     52.297      0.000
+    T3_PROMISA         1.873      0.033     56.342      0.000
+    T3_SDQEMO          0.920      0.016     57.838      0.000
+
+ Variances
+    F                  1.000      0.000    999.000    999.000
+
+ Residual Variances
+    T3_PHQ8            0.454      0.026     17.584      0.000
+    T3_PROMISA         0.212      0.026      7.998      0.000
+    T3_SDQEMO          0.498      0.033     15.196      0.000
+
+
+STD Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ F        BY
+    T3_PHQ8            4.251      0.143     29.810      0.000
+    T3_PROMISA         9.942      0.298     33.396      0.000
+    T3_SDQEMO          1.745      0.078     22.448      0.000
+
+ Intercepts
+    T3_PHQ8            4.598      0.154     29.885      0.000
+    T3_PROMISA        20.975      0.262     80.065      0.000
+    T3_SDQEMO          2.266      0.055     41.377      0.000
+
+ Variances
+    F                  1.000      0.000    999.000    999.000
+
+ Residual Variances
+    T3_PHQ8           15.040      1.279     11.763      0.000
+    T3_PROMISA        26.558      3.716      7.148      0.000
+    T3_SDQEMO          3.026      0.184     16.448      0.000
+
+
+R-SQUARE
+
+    Observed                                        Two-Tailed
+    Variable        Estimate       S.E.  Est./S.E.    P-Value
+
+    T3_PHQ8            0.546      0.026     21.125      0.000
+    T3_PROMI           0.788      0.026     29.766      0.000
+    T3_SDQEM           0.502      0.033     15.293      0.000
+
+
+DIAGRAM INFORMATION
+
+  Use View Diagram under the Diagram menu in the Mplus Editor to view the diagram.
+  If running Mplus from the Mplus Diagrammer, the diagram opens automatically.
+
+  Diagram output
+    c:\users\msun4123\onedrive - the university of sydney (staff)\cre\psychiatric epidemiology\pubertal timing and int\m
+
+     Beginning Time:  15:29:03
+        Ending Time:  15:29:03
+       Elapsed Time:  00:00:00
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2022 Muthen & Muthen
